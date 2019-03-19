@@ -18,6 +18,7 @@ import com.itsol.smartweb32.util.AppConstants;
 
 @Service
 public class UserPayloadExtend {
+	
 
 	@Autowired
 	private UserRepository userRepository;

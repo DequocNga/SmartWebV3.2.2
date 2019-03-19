@@ -1,5 +1,6 @@
 package com.itsol.smartweb32.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -135,7 +136,6 @@ public class UserController {
 	}
 
 	@GetMapping("/userany/all")
-
 	@PreAuthorize("hasRole('ADMIN')")
 	public PagedResponse<Users> getAllUsers(@CurrentUser UserPrincipal currentUser,
 
@@ -143,6 +143,13 @@ public class UserController {
 
 			@RequestParam(value = "size", defaultValue = AppConstants.DEFAULT_PAGE_SIZE) int size) {
 		return userPayloadExtend.getAllUsers(currentUser, page, size);
+	}
+	
+	@GetMapping("/userany/find/{keyword}")
+	@PreAuthorize("hasRole('ADMIN')")
+	public ArrayList<Users> findByKeyword(@PathVariable(value = "keyword") String keyword){
+		String key = keyword + "*";
+		return (ArrayList<Users>) userRepository.findByKeyword(key);
 	}
 
 }

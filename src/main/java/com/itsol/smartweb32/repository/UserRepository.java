@@ -25,5 +25,8 @@ public interface UserRepository extends JpaRepository<Users, Long> {
 
 	@Query(value = "select * from users where id = ?1", nativeQuery = true)
 	Users findAnyUserByID(Long id);
+	
+	@Query(value = "SELECT * FROM users WHERE MATCH (`fullname`,`email`,`address`,`skill`,`username`) AGAINST ( ?1 in boolean mode)", nativeQuery = true)
+	List<Users> findByKeyword(String keyword);
 
 }
